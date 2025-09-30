@@ -29,14 +29,14 @@ export function Hero() {
         <div className="max-w-4xl mx-auto text-center">
           {/* Greeting */}
           <ScrollReveal direction="down" delay={0.2}>
-            <p className="text-cyan-400 font-medium mb-4 text-lg">
+            <p className="text-cyan-400 font-medium mb-6 text-lg">
               👋 Merhaba, ben
             </p>
           </ScrollReveal>
 
           {/* Name */}
           <ScrollReveal direction="up" delay={0.3}>
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8">
               <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Arda Çalışkan
               </span>
@@ -45,30 +45,31 @@ export function Hero() {
 
           {/* Typing Effect */}
           <ScrollReveal direction="up" delay={0.4}>
-            <div className="h-16 flex items-center justify-center mb-8">
-              <h2 className="text-2xl md:text-4xl font-bold text-white">
+            <div className="min-h-[100px] flex items-center justify-center mb-10">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">
                 {typedText}
-                <span className="inline-block w-1 h-8 md:h-10 bg-indigo-400 ml-1 animate-pulse" />
+                <span className="inline-block w-1 h-8 md:h-12 bg-indigo-400 ml-2 animate-pulse" />
               </h2>
             </div>
           </ScrollReveal>
 
-          {/* Description */}
+          {/* Description - ORTALANMIŞ */}
           <ScrollReveal direction="up" delay={0.5}>
-            <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-300 mb-16 max-w-3xl mx-auto leading-relaxed text-center">
               Modern web teknolojileri ve mobil uygulama geliştirme konusunda tutkulu bir yazılımcıyım. 
               Kullanıcı odaklı, performanslı ve ölçeklenebilir çözümler üretiyorum.
             </p>
           </ScrollReveal>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - DAHA İYİ SPACING */}
           <ScrollReveal direction="up" delay={0.6}>
-            <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-20">
               <Button
                 variant="gradient"
                 size="lg"
                 onClick={() => scrollToSection('contact')}
                 icon={<Mail className="w-5 h-5" />}
+                className="w-full sm:w-auto px-10 py-4"
               >
                 İletişime Geç
               </Button>
@@ -77,41 +78,51 @@ export function Hero() {
                 variant="secondary"
                 size="lg"
                 onClick={() => scrollToSection('projects')}
+                className="w-full sm:w-auto px-10 py-4"
               >
                 Projeleri Gör
               </Button>
             </div>
           </ScrollReveal>
 
-          {/* Social Links */}
+          {/* Social Links - DAHA BÜYÜK VE GÜzel */}
           <ScrollReveal direction="up" delay={0.7}>
-            <div className="flex items-center justify-center gap-6">
+            <div className="flex items-center justify-center gap-8 mb-12">
               <a
                 href="https://github.com/ardacaliskaan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-all duration-300 hover:scale-110"
+                className="group relative"
                 aria-label="GitHub"
               >
-                <Github className="w-6 h-6" />
+                <div className="absolute inset-0 bg-white/10 rounded-full blur-xl group-hover:bg-white/20 transition-all" />
+                <div className="relative p-4 bg-white/5 rounded-full border border-white/10 group-hover:border-white/30 group-hover:bg-white/10 transition-all duration-300 group-hover:scale-110">
+                  <Github className="w-7 h-7 text-gray-300 group-hover:text-white transition-colors" />
+                </div>
               </a>
               
               <a
                 href="https://www.linkedin.com/in/ardacaliskaan/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-all duration-300 hover:scale-110"
+                className="group relative"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="w-6 h-6" />
+                <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-xl group-hover:bg-blue-500/40 transition-all" />
+                <div className="relative p-4 bg-blue-500/10 rounded-full border border-blue-500/20 group-hover:border-blue-500/50 group-hover:bg-blue-500/20 transition-all duration-300 group-hover:scale-110">
+                  <Linkedin className="w-7 h-7 text-blue-400 group-hover:text-blue-300 transition-colors" />
+                </div>
               </a>
               
               <a
                 href="mailto:alkanlardal@icloud.com"
-                className="text-gray-400 hover:text-white transition-all duration-300 hover:scale-110"
+                className="group relative"
                 aria-label="Email"
               >
-                <Mail className="w-6 h-6" />
+                <div className="absolute inset-0 bg-purple-500/20 rounded-full blur-xl group-hover:bg-purple-500/40 transition-all" />
+                <div className="relative p-4 bg-purple-500/10 rounded-full border border-purple-500/20 group-hover:border-purple-500/50 group-hover:bg-purple-500/20 transition-all duration-300 group-hover:scale-110">
+                  <Mail className="w-7 h-7 text-purple-400 group-hover:text-purple-300 transition-colors" />
+                </div>
               </a>
             </div>
           </ScrollReveal>

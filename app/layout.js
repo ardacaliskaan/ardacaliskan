@@ -30,9 +30,13 @@ export const metadata = {
   },
 };
 
-/* Next.js 15 için themeColor artık viewport içinde tanımlanıyor */
+/* ✅ VIEWPORT AYARLARI - MOBİL İÇİN ÖNEMLİ! */
 export const viewport = {
-  themeColor: "#0a0a0a", // koyu tema rengi
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: "#0a0a0a",
 };
 
 export default function RootLayout({ children }) {
