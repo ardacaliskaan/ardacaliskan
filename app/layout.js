@@ -1,22 +1,52 @@
+import "./globals.css";
+
 export const metadata = {
-  title: "Arda Caliskan | Hazırlanıyor",
+  title: "Arda Çalışkan | Web Geliştirme & Yazılım",
   description:
-    "Mahmut Arda Caliskan - Web Geliştirme & Yazılım. Kişisel site hazırlanıyor.",
+    "Arda Çalışkan — Web Geliştirme & Yazılım Uzmanı. Portföyüm ve projelerim çok yakında burada.",
   openGraph: {
-    title: "Arda Caliskan | Hazırlanıyor",
+    title: "Arda Çalışkan | Web Geliştirme & Yazılım",
     description:
-      "Web geliştirme ve yazılım projelerim yakında burada.",
+      "C#, JavaScript, Next.js ve daha fazlasıyla ölçeklenebilir yazılım projeleri.",
     url: "https://ardacaliskan.com",
-    siteName: "ardacaliskan.com",
+    siteName: "Arda Çalışkan",
+    images: [
+      {
+        url: "/android-chrome-512x512.png",
+        width: 512,
+        height: 512,
+        alt: "Arda Çalışkan",
+      },
+    ],
+    locale: "tr_TR",
     type: "website",
   },
-  metadataBase: new URL("https://ardacaliskan.com"),
+  twitter: {
+    card: "summary_large_image",
+    title: "Arda Çalışkan | Web Geliştirme & Yazılım",
+    description:
+      "C#, JavaScript, Next.js ve daha fazlasıyla ölçeklenebilir yazılım projeleri.",
+    images: ["/android-chrome-512x512.png"],
+  },
+};
+
+/* Next.js 15 için themeColor artık viewport içinde tanımlanıyor */
+export const viewport = {
+  themeColor: "#0a0a0a", // koyu tema rengi
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="tr">
-      <body className="bg-[#0b1220] text-[#e9eefc] antialiased">{children}</body>
+      <head>
+        {/* Manifest ve ikonlar */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }

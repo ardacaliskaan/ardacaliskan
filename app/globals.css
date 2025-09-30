@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
+
+/* ------- Tema Değişkenleri (Dark Varsayılan) ------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #e5e7eb;
+  --muted: #94a3b8;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.10);
+  --accent: #4f46e5; /* indigo-600 */
+  --accent-2: #06b6d4; /* cyan-500 */
+  --accent-3: #22c55e; /* green-500 */
+  --accent-gradient: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New";
 }
 
-@media (prefers-color-scheme: dark) {
+/* Kullanıcı açık temayı tercih ederse otomatik aydınlık: */
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
+    --muted: #64748b;
+    --card: rgba(0, 0, 0, 0.03);
+    --card-border: rgba(0, 0, 0, 0.08);
   }
 }
 
+/* ------- Genel ------- */
+* { transition: all .25s ease; }
+html, body { height: 100%; }
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Hafif noise + gradient arka plan */
+.bg-pro {
+  background:
+    radial-gradient(1200px 800px at 10% 10%, rgba(79,70,229,.22), transparent 55%),
+    radial-gradient(1000px 700px at 90% 90%, rgba(14,165,233,.18), transparent 55%),
+    var(--background);
+}
+
+/* Cam efektli kart */
+.glass {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+
+/* Başlıkta degrade metin */
+.heading-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Ana progress için hareketli degrade */
+.progress-animated {
+  background: var(--accent-gradient);
+  background-size: 200% 100%;
+  animation: glide 3s linear infinite;
+}
+
+@keyframes glide {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Hareket hassasiyeti olan kullanıcılar için saygı */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
