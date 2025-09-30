@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 /* ------- Tema Değişkenleri (Dark Varsayılan) ------- */
 :root {
   --background: #0a0a0a;
@@ -21,7 +20,7 @@
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New";
 }
 
-/* Kullanıcı açık temayı tercih ederse otomatik aydınlık: */
+/* Kullanıcı açık temayı tercih ederse otomatik aydınlık */
 @media (prefers-color-scheme: light) {
   :root {
     --background: #ffffff;
@@ -32,16 +31,139 @@
   }
 }
 
-/* ------- Genel ------- */
-* { transition: all .25s ease; }
-html, body { height: 100%; }
+/* ------- Genel Resetler ------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Hafif noise + gradient arka plan */
+/* ------- Scrollbar Styling ------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4f46e5, #7c3aed);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #6366f1, #8b5cf6);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4f46e5 var(--background);
+}
+
+/* ------- Custom Animations ------- */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ------- Utility Classes ------- */
+.animate-pulse-slow {
+  animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+}
+
+.animate-gradient {
+  animation: gradient-shift 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+/* Delay utilities for stagger effects */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-1000 { animation-delay: 1000ms; }
+.delay-2000 { animation-delay: 2000ms; }
+
+/* ------- Background Effects ------- */
 .bg-pro {
   background:
     radial-gradient(1200px 800px at 10% 10%, rgba(79,70,229,.22), transparent 55%),
@@ -49,15 +171,32 @@ body {
     var(--background);
 }
 
-/* Cam efektli kart */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ------- Glass Effect ------- */
 .glass {
   background: var(--card);
   border: 1px solid var(--card-border);
   backdrop-filter: blur(10px);
-  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 
+    0 20px 60px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.05);
 }
 
-/* Başlıkta degrade metin */
+.glass-strong {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ------- Text Gradients ------- */
 .heading-gradient {
   background: var(--accent-gradient);
   -webkit-background-clip: text;
@@ -65,7 +204,28 @@ body {
   color: transparent;
 }
 
-/* Ana progress için hareketli degrade */
+.text-gradient-primary {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-secondary {
+  background: linear-gradient(90deg, #06b6d4, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(90deg, #10b981, #14b8a6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ------- Progress Bar Animation ------- */
 .progress-animated {
   background: var(--accent-gradient);
   background-size: 200% 100%;
@@ -77,7 +237,46 @@ body {
   100% { background-position: 200% 50%; }
 }
 
-/* Hareket hassasiyeti olan kullanıcılar için saygı */
+/* ------- Selection Styling ------- */
+::selection {
+  background: rgba(99, 102, 241, 0.3);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: rgba(99, 102, 241, 0.3);
+  color: #ffffff;
+}
+
+/* ------- Focus Styles ------- */
+*:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ------- Link Styles ------- */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* ------- Image Optimization ------- */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ------- Reduced Motion ------- */
 @media (prefers-reduced-motion: reduce) {
-  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
