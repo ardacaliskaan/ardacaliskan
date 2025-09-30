@@ -15,17 +15,19 @@ export function Projects() {
     : projects.filter(p => p.category === activeFilter);
 
   return (
-    <section id="projects" className="py-20 md:py-32 relative">
-      <div className="container mx-auto px-6">
+    <section id="projects" className="py-16 sm:py-20 md:py-32 relative">
+      {/* MERKEZ CONTAINER */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Section Header */}
         <ScrollReveal direction="up" delay={0.1}>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
               <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
                 Projeler
               </span>
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4">
               Geliştirdiğim ve üzerinde çalıştığım projeler
             </p>
           </div>
@@ -33,11 +35,11 @@ export function Projects() {
 
         {/* Filter Buttons */}
         <ScrollReveal direction="up" delay={0.2}>
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 sm:mb-12">
             <button
               onClick={() => setActiveFilter('all')}
               className={`
-                px-6 py-3 rounded-xl font-medium transition-all duration-300
+                px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base
                 ${activeFilter === 'all'
                   ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg'
                   : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
@@ -53,14 +55,16 @@ export function Projects() {
                   key={category}
                   onClick={() => setActiveFilter(category)}
                   className={`
-                    px-6 py-3 rounded-xl font-medium transition-all duration-300
+                    px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base
                     ${activeFilter === category
                       ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg'
                       : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
                     }
                   `}
                 >
-                  {category} ({count})
+                  <span className="hidden sm:inline">{category}</span>
+                  <span className="sm:hidden">{category.split(' ')[0]}</span>
+                  <span className="ml-1">({count})</span>
                 </button>
               );
             })}
@@ -68,22 +72,22 @@ export function Projects() {
         </ScrollReveal>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
           {filteredProjects.map((project, index) => (
             <ScrollReveal key={project.id} direction="up" delay={0.1 * (index % 3)}>
               <Card className="h-full flex flex-col">
                 <CardHeader>
                   {/* Project Image Placeholder */}
-                  <div className="w-full h-48 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-2xl mb-4 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
-                    <div className="text-6xl">💻</div>
+                  <div className="w-full h-40 sm:h-48 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-2xl mb-4 flex items-center justify-center">
+                    <div className="text-4xl sm:text-6xl">💻</div>
                   </div>
 
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <CardTitle>{project.title}</CardTitle>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <CardTitle className="text-base sm:text-lg">{project.title}</CardTitle>
                       <div className="mt-2">
                         <span className={`
-                          text-xs px-3 py-1 rounded-full
+                          text-xs px-2 sm:px-3 py-1 rounded-full inline-block
                           ${project.status === 'active' ? 'bg-green-500/20 text-green-300' : 'bg-blue-500/20 text-blue-300'}
                         `}>
                           {project.status === 'active' ? '🟢 Aktif' : '✅ Tamamlandı'}
@@ -100,27 +104,27 @@ export function Projects() {
                 </CardHeader>
 
                 <CardContent className="flex-1">
-                  <CardDescription className="mb-4">
+                  <CardDescription className="mb-4 text-sm">
                     {project.description}
                   </CardDescription>
 
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.slice(0, 4).map((tech, i) => (
+                    {project.technologies.slice(0, 3).map((tech, i) => (
                       <TechBadge key={i} tech={tech} />
                     ))}
-                    {project.technologies.length > 4 && (
-                      <span className="text-xs text-gray-500">+{project.technologies.length - 4}</span>
+                    {project.technologies.length > 3 && (
+                      <span className="text-xs text-gray-500">+{project.technologies.length - 3}</span>
                     )}
                   </div>
 
                   {/* Highlights */}
                   {project.highlights && (
-                    <ul className="space-y-1 text-sm text-gray-400">
-                      {project.highlights.slice(0, 3).map((highlight, i) => (
+                    <ul className="space-y-1 text-xs sm:text-sm text-gray-400">
+                      {project.highlights.slice(0, 2).map((highlight, i) => (
                         <li key={i} className="flex items-start gap-2">
-                          <span className="text-green-400 mt-1">•</span>
-                          <span>{highlight}</span>
+                          <span className="text-green-400 mt-0.5">•</span>
+                          <span className="flex-1">{highlight}</span>
                         </li>
                       ))}
                     </ul>
@@ -158,9 +162,9 @@ export function Projects() {
           ))}
         </div>
 
-        {/* View All Projects CTA */}
+        {/* View All CTA */}
         <ScrollReveal direction="up" delay={0.3}>
-          <div className="text-center mt-12">
+          <div className="text-center">
             <Button
               variant="outline"
               size="lg"

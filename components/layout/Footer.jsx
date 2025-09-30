@@ -36,14 +36,15 @@ export function Footer() {
 
   return (
     <footer className="relative bg-black/50 border-t border-white/10 backdrop-blur-lg">
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
-          <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-4">
+          <div className="sm:col-span-2">
+            <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-4">
               Arda Çalışkan
             </h3>
-            <p className="text-gray-400 mb-4 max-w-md">
+            <p className="text-gray-400 text-sm sm:text-base mb-4 max-w-md">
               Modern web ve mobil uygulamalar geliştiren full-stack yazılımcı. 
               Kullanıcı odaklı, performanslı çözümler üretiyorum.
             </p>
@@ -65,13 +66,13 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Hızlı Linkler</h4>
+            <h4 className="text-white font-semibold mb-4 text-sm sm:text-base">Hızlı Linkler</h4>
             <ul className="space-y-2">
               {NAV_ITEMS.slice(0, 4).map((item) => (
                 <li key={item.id}>
                   <button
                     onClick={() => scrollToSection(item.id)}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-gray-400 hover:text-white transition-colors text-sm"
                   >
                     {item.name}
                   </button>
@@ -82,13 +83,13 @@ export function Footer() {
 
           {/* More Links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Daha Fazla</h4>
+            <h4 className="text-white font-semibold mb-4 text-sm sm:text-base">Daha Fazla</h4>
             <ul className="space-y-2">
               {NAV_ITEMS.slice(4).map((item) => (
                 <li key={item.id}>
                   <button
                     onClick={() => scrollToSection(item.id)}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-gray-400 hover:text-white transition-colors text-sm"
                   >
                     {item.name}
                   </button>
@@ -99,7 +100,7 @@ export function Footer() {
                   href={SOCIAL_LINKS.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-gray-400 hover:text-white transition-colors text-sm"
                 >
                   GitHub Profilim
                 </a>
@@ -109,21 +110,21 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-400 text-sm text-center md:text-left">
+        <div className="border-t border-white/10 pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-gray-400 text-xs sm:text-sm text-center sm:text-left">
             © {currentYear} Arda Çalışkan. Tüm hakları saklıdır.
           </p>
 
-          <p className="text-gray-400 text-sm flex items-center gap-2">
-            Made with <Heart className="w-4 h-4 text-red-500 fill-current animate-pulse" /> in Turkey
+          <p className="text-gray-400 text-xs sm:text-sm flex items-center gap-2">
+            Made with <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-red-500 fill-current animate-pulse" /> in Turkey
           </p>
 
           <button
             onClick={scrollToTop}
-            className="p-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-300 hover:scale-110"
+            className="p-2 sm:p-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-300 hover:scale-110"
             aria-label="Scroll to top"
           >
-            <ArrowUp className="w-5 h-5" />
+            <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
         </div>
       </div>

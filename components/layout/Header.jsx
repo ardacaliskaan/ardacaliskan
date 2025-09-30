@@ -15,7 +15,6 @@ export function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Update active section based on scroll position
       const sections = NAV_ITEMS.map(item => item.id);
       for (const sectionId of sections) {
         const element = document.getElementById(sectionId);
@@ -56,12 +55,12 @@ export function Header() {
             : 'bg-transparent'
         }`}
       >
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
             <button
               onClick={() => scrollToSection('hero')}
-              className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent hover:scale-105 transition-transform"
+              className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent hover:scale-105 transition-transform"
             >
               AC
             </button>
@@ -72,7 +71,7 @@ export function Header() {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                  className={`px-3 lg:px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm lg:text-base ${
                     activeSection === item.id
                       ? 'text-white bg-white/10'
                       : 'text-gray-400 hover:text-white hover:bg-white/5'
@@ -122,7 +121,7 @@ export function Header() {
 
         {/* Menu Content */}
         <div className="absolute top-20 left-0 right-0 bottom-0 overflow-y-auto">
-          <nav className="container mx-auto px-6 py-8 space-y-2">
+          <nav className="w-full max-w-md mx-auto px-4 sm:px-6 py-8 space-y-2">
             {NAV_ITEMS.map((item, index) => (
               <button
                 key={item.id}
