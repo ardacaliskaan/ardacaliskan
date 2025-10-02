@@ -1,26 +1,30 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useScrollProgress } from '@/hooks/useScrollProgress';
 import { Button } from '@/components/ui/Button';
 import { NAV_ITEMS } from '@/lib/constants';
 import { Menu, X } from 'lucide-react';
 
 export function Header() {
+  const [activeSection, setActiveSection] = useState('hero');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
-  const scrollProgress = useScrollProgress();
 
+  // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
+      // Update active section based on scroll position
       const sections = NAV_ITEMS.map(item => item.id);
+      const scrollPosition = window.scrollY + 100;
+
       for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const sectionTop = section.offsetTop;
+          const sectionBottom = sectionTop + section.offsetHeight;
+
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
             setActiveSection(sectionId);
             break;
           }
@@ -32,30 +36,43 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') setIsMobileMenuOpen(false);
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <>
-      {/* Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-white/5 z-50">
-        <div
-          className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 transition-all duration-300"
-          style={{ width: `${scrollProgress}%` }}
-        />
-      </div>
-
-      {/* Header */}
       <header
-        className={`fixed top-1 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'backdrop-blur-lg bg-black/50 border-b border-white/10 shadow-xl'
+            ? 'bg-black/80 backdrop-blur-lg border-b border-white/10 shadow-lg'
             : 'bg-transparent'
         }`}
       >
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container">
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
             <button
@@ -66,12 +83,12 @@ export function Header() {
             </button>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden md:flex items-center gap-1 lg:gap-2">
               {NAV_ITEMS.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`px-3 lg:px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm lg:text-base ${
+                  className={`px-3 lg:px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                     activeSection === item.id
                       ? 'text-white bg-white/10'
                       : 'text-gray-400 hover:text-white hover:bg-white/5'
@@ -98,6 +115,7 @@ export function Header() {
               className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -115,13 +133,13 @@ export function Header() {
       >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black/80 backdrop-blur-lg"
+          className="absolute inset-0 bg-black/90 backdrop-blur-lg"
           onClick={() => setIsMobileMenuOpen(false)}
         />
 
         {/* Menu Content */}
         <div className="absolute top-20 left-0 right-0 bottom-0 overflow-y-auto">
-          <nav className="w-full max-w-md mx-auto px-4 sm:px-6 py-8 space-y-2">
+          <nav className="container py-8 space-y-2">
             {NAV_ITEMS.map((item, index) => (
               <button
                 key={item.id}
@@ -131,7 +149,10 @@ export function Header() {
                     ? 'text-white bg-gradient-to-r from-indigo-600 to-purple-600'
                     : 'text-gray-400 bg-white/5 hover:bg-white/10 hover:text-white'
                 }`}
-                style={{ animationDelay: `${index * 50}ms` }}
+                style={{
+                  animationDelay: `${index * 50}ms`,
+                  animation: isMobileMenuOpen ? 'slideIn 0.3s ease-out forwards' : 'none'
+                }}
               >
                 {item.name}
               </button>
@@ -150,6 +171,20 @@ export function Header() {
           </nav>
         </div>
       </div>
+
+      {/* Add animation keyframes */}
+      <style jsx>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </>
   );
 }

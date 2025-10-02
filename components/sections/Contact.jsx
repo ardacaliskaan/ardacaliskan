@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { Mail, Linkedin, Github, MapPin, Send } from 'lucide-react';
+import { Mail, Linkedin, Github, MapPin, Send, CheckCircle } from 'lucide-react';
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -12,28 +12,29 @@ export function Contact() {
     subject: '',
     message: ''
   });
-  const [status, setStatus] = useState({ type: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setStatus({ type: '', message: '' });
-
+    
+    // Simulated form submission
     setTimeout(() => {
-      setStatus({
+      setSubmitStatus({
         type: 'success',
         message: 'Mesajınız başarıyla gönderildi! En kısa sürede dönüş yapacağım.'
       });
       setFormData({ name: '', email: '', subject: '', message: '' });
       setIsSubmitting(false);
+      
+      // Clear status after 5 seconds
+      setTimeout(() => setSubmitStatus(null), 5000);
     }, 1500);
   };
 
@@ -68,19 +69,18 @@ export function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-16 sm:py-20 md:py-32 relative">
-      {/* MERKEZ CONTAINER */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+    <section id="contact" className="py-16 sm:py-20 lg:py-32 relative">
+      {/* Container */}
+      <div className="container">
         {/* Section Header */}
         <ScrollReveal direction="up" delay={0.1}>
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="text-center mb-12 sm:mb-16 lg:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
               <span className="bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">
                 İletişim
               </span>
             </h2>
-            <p className="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4">
+            <p className="text-gray-400 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-4">
               Proje fikirleri, iş birlikleri veya sadece merhaba demek için benimle iletişime geçin
             </p>
           </div>
@@ -97,7 +97,7 @@ export function Contact() {
 
             {contactInfo.map((item, index) => (
               <ScrollReveal key={index} direction="left" delay={0.3 + index * 0.1}>
-                <Card className="group">
+                <Card className="group hover:scale-105 transition-transform">
                   <div className="flex items-start gap-3 sm:gap-4">
                     <div className={`p-2 sm:p-3 rounded-xl bg-gradient-to-br ${item.color} group-hover:scale-110 transition-transform flex-shrink-0`}>
                       <div className="text-white">{item.icon}</div>
@@ -122,18 +122,22 @@ export function Contact() {
               </ScrollReveal>
             ))}
 
+            {/* Availability Status */}
             <ScrollReveal direction="left" delay={0.7}>
-              <Card gradient className="p-6 sm:p-8">
-                <h4 className="text-lg sm:text-xl font-bold text-white mb-3">
-                  Freelance Çalışmaya Açığım 🚀
-                </h4>
-                <p className="text-gray-300 text-sm sm:text-base mb-4">
-                  Web development, iOS development ve backend projeleri için 
-                  freelance olarak çalışıyorum. Projeniz için hemen iletişime geçelim!
-                </p>
-                <div className="flex items-center gap-2 text-green-400">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                  <span className="text-xs sm:text-sm font-medium">Müsait</span>
+              <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/20">
+                <div className="flex items-start gap-3">
+                  <div className="relative flex-shrink-0">
+                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                    <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full animate-ping" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-semibold mb-1 text-sm sm:text-base">
+                      Freelance Çalışmaya Açığım 🚀
+                    </h4>
+                    <p className="text-gray-400 text-xs sm:text-sm">
+                      Web development, iOS development ve backend projeleri için hemen iletişime geçelim!
+                    </p>
+                  </div>
                 </div>
               </Card>
             </ScrollReveal>
@@ -143,8 +147,13 @@ export function Contact() {
           <ScrollReveal direction="right" delay={0.2}>
             <Card>
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">
+                  Mesaj Gönder
+                </h3>
+
+                {/* Name Input */}
                 <div>
-                  <label htmlFor="name" className="block text-white font-medium mb-2 text-sm sm:text-base">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                     Adınız
                   </label>
                   <input
@@ -154,13 +163,14 @@ export function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm sm:text-base"
                     placeholder="Adınız Soyadınız"
                   />
                 </div>
 
+                {/* Email Input */}
                 <div>
-                  <label htmlFor="email" className="block text-white font-medium mb-2 text-sm sm:text-base">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                     Email
                   </label>
                   <input
@@ -170,13 +180,14 @@ export function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm sm:text-base"
                     placeholder="ornek@email.com"
                   />
                 </div>
 
+                {/* Subject Input */}
                 <div>
-                  <label htmlFor="subject" className="block text-white font-medium mb-2 text-sm sm:text-base">
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
                     Konu
                   </label>
                   <input
@@ -186,13 +197,14 @@ export function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm sm:text-base"
                     placeholder="Mesajınızın konusu"
                   />
                 </div>
 
+                {/* Message Textarea */}
                 <div>
-                  <label htmlFor="message" className="block text-white font-medium mb-2 text-sm sm:text-base">
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
                     Mesajınız
                   </label>
                   <textarea
@@ -202,21 +214,12 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all resize-none"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none text-sm sm:text-base"
                     placeholder="Mesajınızı buraya yazın..."
                   />
                 </div>
 
-                {status.message && (
-                  <div className={`p-3 sm:p-4 rounded-xl text-sm sm:text-base ${
-                    status.type === 'success' 
-                      ? 'bg-green-500/20 text-green-300 border border-green-500/30' 
-                      : 'bg-red-500/20 text-red-300 border border-red-500/30'
-                  }`}>
-                    {status.message}
-                  </div>
-                )}
-
+                {/* Submit Button */}
                 <Button
                   type="submit"
                   variant="gradient"
@@ -224,11 +227,29 @@ export function Contact() {
                   className="w-full"
                   disabled={isSubmitting}
                   loading={isSubmitting}
-                  icon={<Send className="w-5 h-5" />}
+                  icon={!isSubmitting && <Send className="w-5 h-5" />}
                   iconPosition="right"
                 >
                   {isSubmitting ? 'Gönderiliyor...' : 'Mesaj Gönder'}
                 </Button>
+
+                {/* Success Message */}
+                {submitStatus && (
+                  <div className={`p-4 rounded-xl flex items-start gap-3 ${
+                    submitStatus.type === 'success' 
+                      ? 'bg-green-500/10 border border-green-500/20' 
+                      : 'bg-red-500/10 border border-red-500/20'
+                  }`}>
+                    <CheckCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
+                      submitStatus.type === 'success' ? 'text-green-400' : 'text-red-400'
+                    }`} />
+                    <p className={`text-sm ${
+                      submitStatus.type === 'success' ? 'text-green-300' : 'text-red-300'
+                    }`}>
+                      {submitStatus.message}
+                    </p>
+                  </div>
+                )}
               </form>
             </Card>
           </ScrollReveal>
