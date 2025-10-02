@@ -1,145 +1,114 @@
 'use client';
-import { useTypingEffect } from '@/hooks/useTypingEffect';
-import { Button } from '@/components/ui/Button';
-import { ScrollReveal } from '@/components/animations/ScrollReveal';
-import { Mail, Linkedin, Github, ArrowDown } from 'lucide-react';
+import { Mail, Linkedin, Github, ArrowDown, ArrowRight } from 'lucide-react';
 
 export function Hero() {
-  const typedText = useTypingEffect(
-    ['Full-Stack Developer', 'iOS Developer', 'Problem Solver', 'Code Enthusiast'],
-    150,
-    100,
-    2000
-  );
-
-  const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
-      {/* Animated Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-500/30 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/20 rounded-full blur-3xl animate-pulse delay-2000" />
-      </div>
-
-      {/* Container */}
-      <div className="container">
-        <div className="text-center">
-          {/* Greeting */}
-          <ScrollReveal direction="down" delay={0.2}>
-            <p className="text-cyan-400 font-medium mb-4 sm:mb-6 text-sm sm:text-base lg:text-lg">
-              👋 Merhaba, ben
-            </p>
-          </ScrollReveal>
-
-          {/* Name */}
-          <ScrollReveal direction="up" delay={0.3}>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-6 sm:mb-8 leading-tight px-4">
-              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Arda Çalışkan
-              </span>
-            </h1>
-          </ScrollReveal>
-
-          {/* Typing Effect */}
-          <ScrollReveal direction="up" delay={0.4}>
-            <div className="min-h-[60px] sm:min-h-[80px] lg:min-h-[100px] flex items-center justify-center mb-8 sm:mb-10 px-4">
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white">
-                {typedText}
-                <span className="inline-block w-0.5 sm:w-1 h-5 sm:h-7 lg:h-10 xl:h-12 bg-indigo-400 ml-1 sm:ml-2 animate-pulse" />
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          {/* Description */}
-          <ScrollReveal direction="up" delay={0.5}>
-            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-300 mb-10 sm:mb-12 lg:mb-16 max-w-3xl mx-auto leading-relaxed px-4">
-              Modern web teknolojileri ve mobil uygulama geliştirme konusunda tutkulu bir yazılımcıyım. 
-              Kullanıcı odaklı, performanslı ve ölçeklenebilir çözümler üretiyorum.
-            </p>
-          </ScrollReveal>
-
-          {/* CTA Buttons */}
-          <ScrollReveal direction="up" delay={0.6}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 sm:mb-12 lg:mb-16 px-4">
-              <Button
-                variant="gradient"
-                size="lg"
-                onClick={() => scrollToSection('contact')}
-                icon={<Mail className="w-5 h-5" />}
-                className="w-full sm:w-auto"
-              >
-                İletişime Geç
-              </Button>
-              
-              <Button
-                variant="secondary"
-                size="lg"
-                onClick={() => scrollToSection('projects')}
-                className="w-full sm:w-auto"
-              >
-                Projeleri Gör
-              </Button>
-            </div>
-          </ScrollReveal>
-
-          {/* Social Links */}
-          <ScrollReveal direction="up" delay={0.7}>
-            <div className="flex items-center justify-center gap-4 sm:gap-6 lg:gap-8 px-4">
-              <a
-                href="https://github.com/ardacaliskaan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative"
-                aria-label="GitHub"
-              >
-                <div className="absolute inset-0 bg-white/10 rounded-full blur-xl group-hover:bg-white/20 transition-all opacity-0 group-hover:opacity-100" />
-                <div className="relative p-3 lg:p-4 bg-white/5 rounded-full border border-white/10 group-hover:border-white/30 group-hover:bg-white/10 transition-all duration-300 group-hover:scale-110">
-                  <Github className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-gray-300 group-hover:text-white transition-colors" />
-                </div>
-              </a>
-              
-              <a
-                href="https://www.linkedin.com/in/ardacaliskaan/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative"
-                aria-label="LinkedIn"
-              >
-                <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-xl group-hover:bg-blue-500/40 transition-all opacity-0 group-hover:opacity-100" />
-                <div className="relative p-3 lg:p-4 bg-blue-500/10 rounded-full border border-blue-500/20 group-hover:border-blue-500/50 group-hover:bg-blue-500/20 transition-all duration-300 group-hover:scale-110">
-                  <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-blue-400 group-hover:text-blue-300 transition-colors" />
-                </div>
-              </a>
-              
-              <a
-                href="mailto:alkanlardal@icloud.com"
-                className="group relative"
-                aria-label="Email"
-              >
-                <div className="absolute inset-0 bg-green-500/20 rounded-full blur-xl group-hover:bg-green-500/40 transition-all opacity-0 group-hover:opacity-100" />
-                <div className="relative p-3 lg:p-4 bg-green-500/10 rounded-full border border-green-500/20 group-hover:border-green-500/50 group-hover:bg-green-500/20 transition-all duration-300 group-hover:scale-110">
-                  <Mail className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-green-400 group-hover:text-green-300 transition-colors" />
-                </div>
-              </a>
-            </div>
-          </ScrollReveal>
-
-          {/* Scroll Indicator */}
-          <ScrollReveal direction="up" delay={0.8}>
-            <button
-              onClick={() => scrollToSection('about')}
-              className="mt-12 sm:mt-16 mx-auto flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors group"
-              aria-label="Scroll to about section"
-            >
-              <span className="text-xs sm:text-sm font-medium">Aşağı Kaydır</span>
-              <ArrowDown className="w-5 h-5 sm:w-6 sm:h-6 animate-bounce group-hover:text-indigo-400 transition-colors" />
-            </button>
-          </ScrollReveal>
+    <section className="min-h-screen w-full flex items-center justify-center px-4 sm:px-6">
+      <div className="w-full max-w-4xl mx-auto text-center">
+        
+        {/* Greeting */}
+        <div style={{ marginBottom: '24px' }}>
+          <p className="text-cyan-400 font-medium text-base">
+            👋 Merhaba, ben
+          </p>
         </div>
+
+        {/* Name */}
+        <div style={{ marginBottom: '32px' }}>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight">
+            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Arda Çalışkan
+            </span>
+          </h1>
+        </div>
+
+        {/* Title */}
+        <div style={{ marginBottom: '32px' }}>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+            Full-Stack Developer
+          </h2>
+        </div>
+
+        {/* Description */}
+        <div style={{ marginBottom: '48px' }}>
+          <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+            Modern web teknolojileri ve mobil uygulama geliştirme konusunda tutkulu bir yazılımcıyım. 
+            Kullanıcı odaklı, performanslı ve ölçeklenebilir çözümler üretiyorum.
+          </p>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center" style={{ marginBottom: '120px' }}>
+          
+          {/* İletişime Geç */}
+          <button className="group relative w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-2xl font-bold text-white shadow-2xl overflow-hidden hover:scale-110 transition-all duration-500">
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+            <div className="relative flex items-center justify-center gap-3">
+              <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+              <span>İletişime Geç</span>
+              <div className="w-2 h-2 bg-white rounded-full group-hover:animate-ping" />
+            </div>
+          </button>
+          
+          {/* Projeleri Gör */}
+          <button className="group relative w-full sm:w-auto px-10 py-5 bg-transparent rounded-2xl font-bold text-white overflow-hidden hover:scale-110 transition-all duration-500">
+            <div className="absolute inset-0 rounded-2xl p-[2px] bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500">
+              <div className="w-full h-full bg-[#0a0a0a] rounded-2xl" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="relative flex items-center justify-center gap-3">
+              <span>Projeleri Gör</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+            </div>
+          </button>
+          
+        </div>
+
+        {/* Social Icons - BÜYÜK BOŞLUK */}
+        <div className="flex gap-8 justify-center items-center" style={{ marginBottom: '48px' }}>
+          
+          {/* GitHub */}
+          <a 
+            href="https://github.com/ardacaliskaan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative p-6 bg-gradient-to-br from-white/5 to-white/10 hover:from-white/10 hover:to-white/20 border border-white/10 hover:border-white/30 rounded-2xl transition-all duration-500 hover:scale-125 shadow-xl hover:shadow-2xl"
+          >
+            <div className="absolute inset-0 bg-white/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Github className="relative w-8 h-8 text-gray-300 group-hover:text-white transition-colors" />
+          </a>
+          
+          {/* LinkedIn */}
+          <a 
+            href="https://www.linkedin.com/in/ardacaliskaan/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative p-6 bg-gradient-to-br from-blue-500/10 to-blue-600/20 hover:from-blue-500/20 hover:to-blue-600/30 border border-blue-500/20 hover:border-blue-400/50 rounded-2xl transition-all duration-500 hover:scale-125 shadow-xl shadow-blue-500/20 hover:shadow-2xl hover:shadow-blue-500/40"
+          >
+            <div className="absolute inset-0 bg-blue-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Linkedin className="relative w-8 h-8 text-blue-400 group-hover:text-blue-300 transition-colors" />
+          </a>
+          
+          {/* Email */}
+          <a 
+            href="mailto:alkanlardal@icloud.com"
+            className="group relative p-6 bg-gradient-to-br from-green-500/10 to-emerald-600/20 hover:from-green-500/20 hover:to-emerald-600/30 border border-green-500/20 hover:border-green-400/50 rounded-2xl transition-all duration-500 hover:scale-125 shadow-xl shadow-green-500/20 hover:shadow-2xl hover:shadow-green-500/40"
+          >
+            <div className="absolute inset-0 bg-green-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Mail className="relative w-8 h-8 text-green-400 group-hover:text-green-300 transition-colors" />
+          </a>
+          
+        </div>
+
+        {/* Scroll Down */}
+        <div className="flex justify-center" style={{ paddingTop: '32px' }}>
+          <button className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors">
+            <span className="text-sm">Aşağı Kaydır</span>
+            <ArrowDown className="w-6 h-6 animate-bounce" />
+          </button>
+        </div>
+
       </div>
     </section>
   );
