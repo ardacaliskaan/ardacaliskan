@@ -1,20 +1,56 @@
 'use client';
-import { Mail, Linkedin, Github, ArrowDown, ArrowRight } from 'lucide-react';
+import { useTypingEffect } from '@/hooks/useTypingEffect';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { Mail, Linkedin, Github, ArrowDown } from 'lucide-react';
 
 export function Hero() {
+  const typedText = useTypingEffect(
+    ['Full-Stack Developer', 'iOS Developer', 'Problem Solver', 'Code Enthusiast'],
+    120,
+    80,
+    2000
+  );
+
+  const [greetingRef, greetingVisible] = useScrollAnimation({ delay: 100 });
+  const [nameRef, nameVisible] = useScrollAnimation({ delay: 200 });
+  const [typingRef, typingVisible] = useScrollAnimation({ delay: 300 });
+  const [descRef, descVisible] = useScrollAnimation({ delay: 400 });
+  const [buttonsRef, buttonsVisible] = useScrollAnimation({ delay: 500 });
+  const [socialsRef, socialsVisible] = useScrollAnimation({ delay: 600 });
+
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="min-h-screen w-full flex items-center justify-center px-4 sm:px-6">
       <div className="w-full max-w-4xl mx-auto text-center">
         
         {/* Greeting */}
-        <div style={{ marginBottom: '24px' }}>
+        <div 
+          ref={greetingRef}
+          style={{ marginBottom: '24px' }}
+          className={`transition-all duration-1000 ${
+            greetingVisible 
+              ? 'opacity-100 translate-y-0 blur-0' 
+              : 'opacity-0 translate-y-10 blur-sm'
+          }`}
+        >
           <p className="text-cyan-400 font-medium text-base">
             👋 Merhaba, ben
           </p>
         </div>
 
         {/* Name */}
-        <div style={{ marginBottom: '32px' }}>
+        <div 
+          ref={nameRef}
+          style={{ marginBottom: '32px' }}
+          className={`transition-all duration-1000 ${
+            nameVisible 
+              ? 'opacity-100 translate-y-0 blur-0' 
+              : 'opacity-0 translate-y-10 blur-sm'
+          }`}
+        >
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight">
             <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Arda Çalışkan
@@ -22,15 +58,32 @@ export function Hero() {
           </h1>
         </div>
 
-        {/* Title */}
-        <div style={{ marginBottom: '32px' }}>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Full-Stack Developer
+        {/* Typing Effect */}
+        <div 
+          ref={typingRef}
+          style={{ marginBottom: '32px' }}
+          className={`transition-all duration-1000 ${
+            typingVisible 
+              ? 'opacity-100 translate-y-0 blur-0' 
+              : 'opacity-0 translate-y-10 blur-sm'
+          }`}
+        >
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white flex items-center justify-center">
+            {typedText}
+            <span className="inline-block w-1 h-6 sm:h-8 lg:h-10 bg-gradient-to-b from-indigo-400 to-purple-400 ml-1 animate-pulse" />
           </h2>
         </div>
 
         {/* Description */}
-        <div style={{ marginBottom: '48px' }}>
+        <div 
+          ref={descRef}
+          style={{ marginBottom: '48px' }}
+          className={`transition-all duration-1000 ${
+            descVisible 
+              ? 'opacity-100 translate-y-0 blur-0' 
+              : 'opacity-0 translate-y-10 blur-sm'
+          }`}
+        >
           <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
             Modern web teknolojileri ve mobil uygulama geliştirme konusunda tutkulu bir yazılımcıyım. 
             Kullanıcı odaklı, performanslı ve ölçeklenebilir çözümler üretiyorum.
@@ -38,10 +91,20 @@ export function Hero() {
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center" style={{ marginBottom: '120px' }}>
-          
+        <div 
+          ref={buttonsRef}
+          style={{ marginBottom: '120px' }}
+          className={`flex flex-col sm:flex-row gap-6 justify-center items-center transition-all duration-1000 ${
+            buttonsVisible 
+              ? 'opacity-100 translate-y-0 blur-0' 
+              : 'opacity-0 translate-y-10 blur-sm'
+          }`}
+        >
           {/* İletişime Geç */}
-          <button className="group relative w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-2xl font-bold text-white shadow-2xl overflow-hidden hover:scale-110 transition-all duration-500">
+          <button 
+            onClick={() => scrollToSection('contact')}
+            className="group relative w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-2xl font-bold text-white shadow-2xl overflow-hidden hover:scale-110 transition-all duration-500"
+          >
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
             <div className="relative flex items-center justify-center gap-3">
@@ -51,23 +114,32 @@ export function Hero() {
             </div>
           </button>
           
-          {/* Projeleri Gör */}
-          <button className="group relative w-full sm:w-auto px-10 py-5 bg-transparent rounded-2xl font-bold text-white overflow-hidden hover:scale-110 transition-all duration-500">
+          {/* Hizmetleri Gör */}
+          <button 
+            onClick={() => scrollToSection('services')}
+            className="group relative w-full sm:w-auto px-10 py-5 bg-transparent rounded-2xl font-bold text-white overflow-hidden hover:scale-110 transition-all duration-500"
+          >
             <div className="absolute inset-0 rounded-2xl p-[2px] bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500">
               <div className="w-full h-full bg-[#0a0a0a] rounded-2xl" />
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative flex items-center justify-center gap-3">
-              <span>Projeleri Gör</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+              <span>Hizmetleri Gör</span>
+              <ArrowDown className="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" />
             </div>
           </button>
-          
         </div>
 
-        {/* Social Icons - BÜYÜK BOŞLUK */}
-        <div className="flex gap-8 justify-center items-center" style={{ marginBottom: '48px' }}>
-          
+        {/* Social Icons */}
+        <div 
+          ref={socialsRef}
+          style={{ marginBottom: '48px' }}
+          className={`flex gap-8 justify-center items-center transition-all duration-1000 ${
+            socialsVisible 
+              ? 'opacity-100 translate-y-0 blur-0' 
+              : 'opacity-0 translate-y-10 blur-sm'
+          }`}
+        >
           {/* GitHub */}
           <a 
             href="https://github.com/ardacaliskaan"
@@ -98,12 +170,21 @@ export function Hero() {
             <div className="absolute inset-0 bg-green-400/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
             <Mail className="relative w-8 h-8 text-green-400 group-hover:text-green-300 transition-colors" />
           </a>
-          
         </div>
 
         {/* Scroll Down */}
-        <div className="flex justify-center" style={{ paddingTop: '32px' }}>
-          <button className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors">
+        <div 
+          style={{ paddingTop: '32px' }}
+          className={`flex justify-center transition-all duration-1000 delay-700 ${
+            socialsVisible 
+              ? 'opacity-100 translate-y-0 blur-0' 
+              : 'opacity-0 translate-y-10 blur-sm'
+          }`}
+        >
+          <button 
+            onClick={() => scrollToSection('services')}
+            className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors"
+          >
             <span className="text-sm">Aşağı Kaydır</span>
             <ArrowDown className="w-6 h-6 animate-bounce" />
           </button>
